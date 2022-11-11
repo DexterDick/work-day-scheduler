@@ -24,14 +24,18 @@ $(function () {
   $("#currentDay").text(dayjs().format("dddd, MMMM DD"));
 
   const timeBlocks = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+  const containerEL = $(".container-fluid");
 
   $.each(timeBlocks, function (index, value) {
-    $(`<div id="hour-${value}" class="row time-block past">
-    <div class="col-2 col-md-1 hour text-center py-3">9AM</div>
+    const timeBlockEL = $(`<div id="hour-${value}" class="row time-block past">
+    <div class="col-2 col-md-1 hour text-center py-3">${dayjs()
+      .hour(timeBlocks[index])
+      .format("h : A")}</div>
     <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
     <button class="btn saveBtn col-2 col-md-1" aria-label="save">
       <i class="fas fa-save" aria-hidden="true"></i>
     </button>
   </div>`);
+    containerEL.append(timeBlockEL);
   });
 });
