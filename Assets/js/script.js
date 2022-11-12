@@ -1,33 +1,17 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
 
+$(function () {
+  // Hour of day 24hour
   const currHour = dayjs().format("HH");
-  console.log(currHour);
-  const timeBlocks = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+  // adding more numbers to array will alow to the code to work for 24hour day.
+  const timeBlocks = [9, 10, 11, 12, 13, 14, 15, 16, 17];
   const containerEL = $(".container-fluid");
 
   $("#currentDay").text(dayjs().format("dddd, MMMM DD"));
-  // loads html
+  //  Dynamically loadloads HTML content
   $.each(timeBlocks, function (index, value) {
     const timeBlockEL = $(`<div id="hour-${value}" class="row time-block">
     <div class="col-2 col-md-1 hour text-center py-3">${dayjs()
@@ -39,11 +23,13 @@ $(function () {
     </button>
   </div>`);
 
+    // Append dynamically load content to HTML
     containerEL.append(timeBlockEL);
     // end of html load
   });
-  // add clolor
+  // add color
   $(".time-block").each(function () {
+    // Gets id stored html to be used to compare current time
     const schedulerHour = $(this).attr("id").split("-")[1];
 
     if (currHour === schedulerHour) {
@@ -61,14 +47,13 @@ $(function () {
     const timeEL = $(this).parent();
     const id = timeEL.attr("id");
     const toDo = timeEL.find("textarea").val();
-    console.log(toDo);
-    console.log(id);
+    // save to local storage
     localStorage.setItem(id, toDo);
   });
 
   // retrive data from local storage
 
-  $(".time-block .description").each(function (i, description) {
+  $(".time-block .description").each(function () {
     const id = $(this).parent().attr("id");
     $(this).val(localStorage.getItem(id));
   });
