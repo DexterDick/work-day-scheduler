@@ -4,7 +4,8 @@
 
 $(function () {
   // Hour of day 24hour
-  const currHour = dayjs().format("HH");
+  const currHour = dayjs().format("H");
+  console.log(currHour);
 
   // adding more numbers to array will alow to the code to work for 24hour day.
   const timeBlocks = [9, 10, 11, 12, 13, 14, 15, 16, 17];
@@ -34,9 +35,9 @@ $(function () {
 
     if (currHour === schedulerHour) {
       $(this).addClass("present");
-    } else if (currHour < schedulerHour) {
-      $(this).addClass("future");
     } else if (currHour > schedulerHour) {
+      $(this).addClass("future");
+    } else if (currHour < schedulerHour) {
       $(this).addClass("past");
     }
   });
