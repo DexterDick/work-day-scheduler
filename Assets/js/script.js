@@ -21,13 +21,15 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 
-  $("#currentDay").text(dayjs().format("dddd, MMMM DD"));
-
-  const timeBlocks = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+  const currHour = dayjs().format("HH");
+  console.log(currHour);
+  const timeBlocks = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   const containerEL = $(".container-fluid");
 
+  $("#currentDay").text(dayjs().format("dddd, MMMM DD"));
+  // loads html
   $.each(timeBlocks, function (index, value) {
-    const timeBlockEL = $(`<div id="hour-${value}" class="row time-block past">
+    const timeBlockEL = $(`<div id="hour-${value}" class="row time-block">
     <div class="col-2 col-md-1 hour text-center py-3">${dayjs()
       .hour(timeBlocks[index])
       .format("h : A")}</div>
@@ -36,6 +38,38 @@ $(function () {
       <i class="fas fa-save" aria-hidden="true"></i>
     </button>
   </div>`);
+
     containerEL.append(timeBlockEL);
+    // end of html load
+  });
+  // add clolor
+  $(".time-block").each(function () {
+    const schedulerHour = $(this).attr("id").split("-")[1];
+
+    if (currHour === schedulerHour) {
+      $(this).addClass("present");
+    } else if (currHour < schedulerHour) {
+      $(this).addClass("future");
+    } else if (currHour > schedulerHour) {
+      $(this).addClass("past");
+    }
+  });
+
+  // Save schedul to local storage
+
+  $(".time-block").on("click", ".saveBtn", function (event) {
+    const timeEL = $(this).parent();
+    const id = timeEL.attr("id");
+    const toDo = timeEL.find("textarea").val();
+    console.log(toDo);
+    console.log(id);
+    localStorage.setItem(id, toDo);
+  });
+
+  // retrive data from local storage
+
+  $(".time-block .description").each(function (i, description) {
+    const id = $(this).parent().attr("id");
+    $(this).val(localStorage.getItem(id));
   });
 });
