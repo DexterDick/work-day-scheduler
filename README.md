@@ -12,3 +12,11 @@ Worker can save events for each hour of the day using time blocks. Each timebloc
 
 When user clicks in time block they and add edit and save events to the daily planner.
 The events are saved in local storage so if the user refreshes the page then the saved events persist.
+
+[Github URL:](https://github.com/DexterDick/work-day-scheduler)
+
+[GitpagesURL:](https://dexterdick.github.io/work-day-scheduler/)
+
+## Screenshot
+
+![work day scheduler](./Assets/images/app.png);
