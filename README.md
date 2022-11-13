@@ -19,4 +19,4 @@ The events are saved in local storage so if the user refreshes the page then the
 
 ## Screenshot
 
-![work day scheduler](./Assets/images/app.png);
+![work day scheduler](./Assets/images/app.png)
