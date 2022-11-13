@@ -5,13 +5,12 @@
 $(function () {
   // Hour of day 24hour
   const currHour = dayjs().format("H");
-  console.log(currHour);
 
   // adding more numbers to array will alow to the code to work for 24hour day.
-  const timeBlocks = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+  const timeBlocks = ["09", "10", "11", "12", "13", "14", "15", "16", "17"];
   const containerEL = $(".container-fluid");
 
-  $("#currentDay").text(dayjs().format("dddd, MMMM DD"));
+  $("#currentDay").text(dayjs().format("dddd, MMMM YYYY"));
   //  Dynamically loadloads HTML content
   $.each(timeBlocks, function (index, value) {
     const timeBlockEL = $(`<div id="hour-${value}" class="row time-block">
@@ -32,12 +31,11 @@ $(function () {
   $(".time-block").each(function () {
     // Gets id stored html to be used to compare current time
     const schedulerHour = $(this).attr("id").split("-")[1];
-
     if (currHour === schedulerHour) {
       $(this).addClass("present");
-    } else if (currHour > schedulerHour) {
-      $(this).addClass("future");
     } else if (currHour < schedulerHour) {
+      $(this).addClass("future");
+    } else if (currHour > schedulerHour) {
       $(this).addClass("past");
     }
   });
